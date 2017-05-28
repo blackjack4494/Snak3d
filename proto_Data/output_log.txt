@@ -1,0 +1,44 @@
+Initialize engine version: 5.6.0f3 (497a0f351392)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon HD 6900 Series (ID=0x6719)
+    Vendor:   ATI
+    VRAM:     2032 MB
+    Driver:   15.301.1901.0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.015 seconds
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Tom\Documents\Snak3d\proto_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 3.482320 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 40bc -> priority: 1 
+  Thread -> id: 3e68 -> priority: 1 
+  Thread -> id: 3e38 -> priority: 1 
+  Thread -> id: 40c0 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.544915 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 292.
+Total: 0.124678 ms (FindLiveObjects: 0.028614 ms CreateObjectMapping: 0.009708 ms MarkObjects: 0.079457 ms  DeleteObjects: 0.006387 ms)
+
+Food spawned
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Left button pressed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
