@@ -27,6 +27,7 @@ public class FoodCollector : MonoBehaviour {
         {
             score++;
             Destroy(other.gameObject);
+            Movement.ate = true;
             scoreText.text = "Score: " + score;
         }
 

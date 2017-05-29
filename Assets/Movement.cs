@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Movement : MonoBehaviour {
 
     private Rigidbody rb;
+
+    public List<Transform> tail = new List<Transform>();
+    public static bool ate = false;
+    public GameObject tailPrefab;
+    private Vector3 prevPos;
 
     public bool isPaused = false;
 
@@ -110,11 +116,26 @@ public class Movement : MonoBehaviour {
 
     void placeHolder ()
     {
-        
 
+        prevPos = transform.position;
         //rb.MovePosition(transform.position + dir);
         rb.position = transform.position + dir;
         //transform.position = Vector3.MoveTowards(transform.position, pos, 1);
+
+        if (ate)
+        {
+            GameObject g = (GameObject)Instantiate(tailPrefab, prevPos, Quaternion.identity);
+
+            tail.Insert(0, g.transform);
+            ate = false;
+        }
+        else if (tail.Count > 0)
+        {
+            tail.Last().position = prevPos;
+
+            tail.Insert(0, tail.Last());
+            tail.RemoveAt(tail.Count - 1);
+        }
     }
 
     public void Pause()
