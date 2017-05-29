@@ -13,12 +13,16 @@ public class FoodGenerator : MonoBehaviour {
 
     public GameObject curFood;
 
+    public GameObject specialFoodPrefab;
+    public GameObject curSpecialFood;
+
 	// Use this for initialization
 	void Start () {
         width = 15;
         height = 8;
 
         spawnFood();
+        InvokeRepeating("spawnSpecial",3f,5f);
 	}
 	
 	// Update is called once per frame
@@ -29,15 +33,22 @@ public class FoodGenerator : MonoBehaviour {
         }
 	}
 
+    public void spawnSpecial()
+    {
+        //randomPosition();
+        curSpecialFood = GameObject.Instantiate(specialFoodPrefab, randomPosition(), Quaternion.identity) as GameObject;
+        Debug.Log("SpecialFood spawned");
+    }
+
     public void spawnFood()
     {
-        randomPosition();
-        curFood = GameObject.Instantiate(foodPrefab, curPos, Quaternion.identity) as GameObject;
+        //randomPosition();
+        curFood = GameObject.Instantiate(foodPrefab, randomPosition(), Quaternion.identity) as GameObject;
         Debug.Log("Food spawned");
     }
 
-    public void randomPosition()
+    public Vector3 randomPosition()
     {
-        curPos = new Vector3(Random.Range(-width, width), 0.5f, Random.Range(-height, height));
+        return new Vector3(Random.Range(-width, width), 0.5f, Random.Range(-height, height));
     }
 }

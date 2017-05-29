@@ -12,12 +12,17 @@ public class Movement : MonoBehaviour {
     public static bool ate = false;
     public GameObject tailPrefab;
     private Vector3 prevPos;
+    private Vector3 startPos;
+    public int startSize;
+
+    public int speedUpDuration;
 
     public bool isPaused = false;
 
+    public float startSpeed;
     public float speed;
+    public int surprise = 30;
 
-    //private Vector3 pos;
     private Vector3 dir;
 
 	// Use this for initialization
@@ -25,25 +30,23 @@ public class Movement : MonoBehaviour {
 
         rb = GetComponent<Rigidbody>();
 
-        //pos = transform.position;
+        FoodCollector.score = 0;
 
         dir = new Vector3(0, 0, 1);
-
+        startPos = transform.position;
+        startSpeed = speed;
+        initSnakeSize(startSize);
         isPaused = false;
         pauseState();
 
-        InvokeRepeating("placeHolder", 1f, 1f / speed);
+        //InvokeRepeating("snakeLogic", 1f, 1f / speed);
+        snakeLogic();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            isPaused = true;
-            pauseState();
-            SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
-        }
+        pauseState();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -107,15 +110,72 @@ public class Movement : MonoBehaviour {
 
     }
 
-    public void gameOver()
+    private void OnTriggerEnter(Collider other)
     {
-        isPaused = true;
-        pauseState();
-        SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
+
+        if (other.CompareTag("bodyPart"))
+        {
+            gameOver();
+            Debug.Log("Dang! You ate yourself.");
+        }
     }
 
-    void placeHolder ()
+    public void speedUp(float speedIncrease, int sDuration)
     {
+        if(speed < 6 || speedUpDuration < 60)
+        {
+            speed += speedIncrease;
+            speedUpDuration += sDuration;
+            Debug.Log("SpeedUp for " + sDuration + " with " + speedIncrease + " increased speed");
+        }
+    }
+
+    public void gameOver()
+    {
+        if (!SceneManager.GetSceneByName("GameOver").isLoaded)
+        {
+            isPaused = true;
+            pauseState();
+            SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
+        }
+    }
+
+    public void surpriseAttack()
+    {
+        FoodGenerator fg = GameObject.Find("Feeder").GetComponent<FoodGenerator>();
+        for (int i = 0; i < 10; i++)
+        {
+            fg.spawnSpecial();
+        }
+    }
+
+    void snakeLogic ()
+    {
+
+        if (speedUpDuration != 0)
+        {
+            speedUpDuration--;
+        }
+        else if(speedUpDuration == 0)
+        {
+            speed = startSpeed;
+        }
+
+        if(surprise != 0)
+        {
+            surprise--;
+        }
+        else if(surprise == 0)
+        {
+            surpriseAttack();
+            /*
+            FoodGenerator fg = GameObject.Find("Feeder").GetComponent<FoodGenerator>();
+            for (int i = 0; i < 10; i++) {
+                fg.spawnSpecial();
+            }
+            */
+            //surprise = 30;
+        }
 
         prevPos = transform.position;
         //rb.MovePosition(transform.position + dir);
@@ -129,12 +189,24 @@ public class Movement : MonoBehaviour {
             tail.Insert(0, g.transform);
             ate = false;
         }
-        else if (tail.Count > 0)
+        else
         {
             tail.Last().position = prevPos;
 
             tail.Insert(0, tail.Last());
             tail.RemoveAt(tail.Count - 1);
+        }
+
+        Invoke("snakeLogic", 1f / speed);
+    }
+
+    public void initSnakeSize(int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            GameObject g = (GameObject)Instantiate(tailPrefab, (startPos-Vector3.forward), Quaternion.identity);
+            tail.Add(g.transform);
+            startPos -= Vector3.forward;
         }
     }
 
